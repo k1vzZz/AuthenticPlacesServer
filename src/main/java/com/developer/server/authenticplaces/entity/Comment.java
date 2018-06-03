@@ -1,4 +1,4 @@
-package com.developer.server.authenticplaces.AuthenticPlacesServer.entity;
+package com.developer.server.authenticplaces.entity;
 
 import org.hibernate.annotations.Cascade;
 
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Integer id;
 

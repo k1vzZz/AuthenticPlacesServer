@@ -1,4 +1,4 @@
-package com.developer.server.authenticplaces.AuthenticPlacesServer.entity;
+package com.developer.server.authenticplaces.entity;
 
 import javax.persistence.*;
 import java.util.List;
