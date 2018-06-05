@@ -3,6 +3,7 @@ package com.developer.server.authenticplaces.controller;
 
 import com.developer.server.authenticplaces.entity.Marker;
 import com.developer.server.authenticplaces.entity.User;
+import com.developer.server.authenticplaces.model.InfoMarker;
 import com.developer.server.authenticplaces.model.MarkerLatLng;
 import com.developer.server.authenticplaces.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/markers", method = RequestMethod.GET)
-    public List<MarkerLatLng> showCoordinatesMarkers(){
-        List<MarkerLatLng> markerLatLngList = majorService.getMarkersLatLng();
-        return markerLatLngList;
+    public InfoMarker showCoordinatesMarkers(){
+        InfoMarker infoMarker = majorService.getMarkersLatLng();
+        return infoMarker;
     }
 }
