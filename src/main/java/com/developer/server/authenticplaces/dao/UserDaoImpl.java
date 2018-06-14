@@ -23,7 +23,7 @@ public class UserDaoImpl {
         Query query = session.createQuery(sql);
         query.setParameter("identifier", identifierClient);
         List<?> list = query.list();
-        return list != null ? (User) list.get(0) : null;
+        return list != null && list.size() > 0 ? (User) list.get(0) : null;
     }
 
     @Transactional
