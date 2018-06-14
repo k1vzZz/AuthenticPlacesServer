@@ -8,12 +8,14 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
     @Column(name = "id")
     private Integer id;
 
     @Column(name = "login")
     private String login;
+
+    @Column(name = "image_url")
+    private String url;
 
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
     private List<Marker> markers;
@@ -26,6 +28,12 @@ public class User {
 
     public User(String login) {
         this.login = login;
+    }
+
+    public User(Integer id, String login, String urlImage) {
+        this.id = id;
+        this.login = login;
+        this.url = urlImage;
     }
 
     public Integer getId() {

@@ -87,4 +87,16 @@ public class Marker {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+    @Override
+    public String toString() {
+        return "Marker{" +
+                "id=" + id +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", creator=" + creator +
+                ", snapshots=" + snapshots +
+                ", comments=" + comments +
+                '}';
+    }
 }

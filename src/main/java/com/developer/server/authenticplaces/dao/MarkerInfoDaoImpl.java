@@ -1,6 +1,7 @@
 package com.developer.server.authenticplaces.dao;
 
 import com.developer.server.authenticplaces.entity.Marker;
+import com.developer.server.authenticplaces.model.InputInfoMarker;
 import com.developer.server.authenticplaces.model.MarkerLatLng;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +18,7 @@ public class MarkerInfoDaoImpl implements MarkerInfoDao{
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Override
     @Transactional(readOnly = true)
     public List<MarkerLatLng> getAllLatLngMarkers(){
         String sql = "select new " + MarkerLatLng.class.getName()
@@ -25,5 +27,20 @@ public class MarkerInfoDaoImpl implements MarkerInfoDao{
         Session session = sessionFactory.getCurrentSession();
         Query<MarkerLatLng> query = session.createQuery(sql, MarkerLatLng.class);
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public Integer saveNewMarker(InputInfoMarker inputInfoMarker) {
+        String sql = "";
+        Session session = sessionFactory.getCurrentSession();
+        return 0;
+    }
+
+    @Override
+    @Transactional
+    public void addMarker(Marker marker) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(marker);
     }
 }
