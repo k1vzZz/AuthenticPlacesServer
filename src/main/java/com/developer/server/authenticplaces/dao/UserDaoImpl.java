@@ -13,24 +13,24 @@ import java.util.List;
 @Repository
 public class UserDaoImpl {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    @Transactional(readOnly = true)
-    public User getUserByIdentifierGoogle(String identifierClient){
-        Session session = sessionFactory.getCurrentSession();
-        String sql = "from User where identifierClient=:identifier";
-        Query query = session.createQuery(sql);
-        query.setParameter("identifier", identifierClient);
-        List<?> list = query.list();
-        return list != null ? (User) list.get(0) : null;
-    }
-
-    @Transactional
-    public User addUser(String identifierClient, String login, String urlImage) {
-        User user = new User(identifierClient, login, urlImage);
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(user);
-        return user;
-    }
+//    @Autowired
+//    private SessionFactory sessionFactory;
+//
+//    @Transactional(readOnly = true)
+//    public User getUserByIdentifierGoogle(String identifierClient){
+//        Session session = sessionFactory.getCurrentSession();
+//        String sql = "from User where identifierClient=:identifier";
+//        Query query = session.createQuery(sql);
+//        query.setParameter("identifier", identifierClient);
+//        List<?> list = query.list();
+//        return list != null ? (User) list.get(0) : null;
+//    }
+//
+//    @Transactional
+//    public User addUser(String identifierClient, String login, String urlImage) {
+//        User user = new User(identifierClient, login, urlImage);
+//        Session session = sessionFactory.getCurrentSession();
+//        session.persist(user);
+//        return user;
+//    }
 }

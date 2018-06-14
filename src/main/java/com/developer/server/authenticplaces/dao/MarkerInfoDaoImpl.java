@@ -13,35 +13,35 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class MarkerInfoDaoImpl implements MarkerInfoDao{
+public class MarkerInfoDaoImpl{
 
-    @Autowired
-    private SessionFactory sessionFactory;
+//    @Autowired
+//    private SessionFactory sessionFactory;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<MarkerLatLng> getAllLatLngMarkers(){
-        String sql = "select new " + MarkerLatLng.class.getName()
-                + "(m.id,m.latitude,m.longitude) "
-                + "from " + Marker.class.getName() + " m";
-        Session session = sessionFactory.getCurrentSession();
-        Query<MarkerLatLng> query = session.createQuery(sql, MarkerLatLng.class);
-        return query.list();
-    }
-
-    @Override
-    @Transactional
-    public Integer saveNewMarker(InputInfoMarker inputInfoMarker) {
-        String sql = "";
-        Session session = sessionFactory.getCurrentSession();
-        return 0;
-    }
-
-    @Override
-    @Transactional
-    public void addMarker(Marker marker) {
-        System.out.println("Add marker!!!!!!!!!!!!!!!!!!!!!");
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(marker);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<MarkerLatLng> getAllLatLngMarkers(){
+//        String sql = "select new " + MarkerLatLng.class.getName()
+//                + "(m.id,m.latitude,m.longitude) "
+//                + "from " + Marker.class.getName() + " m";
+//        Session session = sessionFactory.getCurrentSession();
+//        Query<MarkerLatLng> query = session.createQuery(sql, MarkerLatLng.class);
+//        return query.list();
+//    }
+//
+//    @Override
+//    @Transactional
+//    public Integer saveNewMarker(InputInfoMarker inputInfoMarker) {
+//        String sql = "";
+//        Session session = sessionFactory.getCurrentSession();
+//        return 0;
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void addMarker(Marker marker) {
+//        System.out.println("Add marker!!!!!!!!!!!!!!!!!!!!!");
+//        Session session = sessionFactory.getCurrentSession();
+//        session.saveOrUpdate(marker);
+//    }
 }

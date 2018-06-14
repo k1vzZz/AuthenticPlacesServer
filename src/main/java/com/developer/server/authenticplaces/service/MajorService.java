@@ -14,39 +14,39 @@ import org.springframework.stereotype.Service;
 @Service
 public class MajorService {
 
-    @Autowired
-    private TestDao testDao;
+//    @Autowired
+//    private TestDao testDao;
 
     @Autowired
     private UserDaoImpl userDao;
 
-    @Autowired
-    private MarkerInfoDao markerInfoDao;
+//    @Autowired
+//    private MarkerInfoDao markerInfoDao;
 
-    public User show() {
-        testDao.testInsert();
-        return testDao.testSelect();
-    }
-
-    public InfoMarker getMarkersLatLng() {
-        return new InfoMarker(markerInfoDao.getAllLatLngMarkers());
-    }
-
-    public Marker addMarker(String json) {
-        InputInfoMarker inputInfoMarker = InputInfoMarker.createFromJSON(json);
-        String identifierClient = inputInfoMarker.getIdentifierClient();
-        User user = userDao.getUserByIdentifierGoogle(identifierClient);
-        if (user == null){
-            user = userDao.addUser(identifierClient, inputInfoMarker.getLogin(), inputInfoMarker.getUrlImage());
-        }
-        System.out.println(user);
-        Marker marker = new Marker();
-        marker.setCreator(user);
-        marker.setLatitude(inputInfoMarker.getLatitude());
-        marker.setLongitude(inputInfoMarker.getLongitude());
-        markerInfoDao.addMarker(marker);
-        return marker;
-    }
+//    public User show() {
+//        testDao.testInsert();
+//        return testDao.testSelect();
+//    }
+//
+//    public InfoMarker getMarkersLatLng() {
+//        return new InfoMarker(markerInfoDao.getAllLatLngMarkers());
+//    }
+//
+//    public Marker addMarker(String json) {
+//        InputInfoMarker inputInfoMarker = InputInfoMarker.createFromJSON(json);
+//        String identifierClient = inputInfoMarker.getIdentifierClient();
+//        User user = userDao.getUserByIdentifierGoogle(identifierClient);
+//        if (user == null){
+//            user = userDao.addUser(identifierClient, inputInfoMarker.getLogin(), inputInfoMarker.getUrlImage());
+//        }
+//        System.out.println(user);
+//        Marker marker = new Marker();
+//        marker.setCreator(user);
+//        marker.setLatitude(inputInfoMarker.getLatitude());
+//        marker.setLongitude(inputInfoMarker.getLongitude());
+//        markerInfoDao.addMarker(marker);
+//        return marker;
+//    }
 
     private void decodeBase64FromString(String imageBase64) {
         byte[] decodedString = Base64.decodeBase64(imageBase64);

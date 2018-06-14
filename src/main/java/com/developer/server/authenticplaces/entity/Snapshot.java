@@ -23,8 +23,8 @@ public class Snapshot {
     @Column(name = "upload_date")
     private Timestamp uploadDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "marker_id")
     private Marker marker;
 

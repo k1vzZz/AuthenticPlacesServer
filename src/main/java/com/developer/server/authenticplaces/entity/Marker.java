@@ -24,12 +24,12 @@ public class Marker {
     @JoinColumn(name = "creator_id")
     private User creator;
 
-    @OneToMany(mappedBy = "marker", fetch = FetchType.LAZY)
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "marker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private List<Snapshot> snapshots;
 
-    @OneToMany(mappedBy = "marker", fetch = FetchType.LAZY)
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "marker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private List<Comment> comments;
 
     public Marker() {
