@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public class UserDaoImpl {
 
@@ -20,7 +22,8 @@ public class UserDaoImpl {
         String sql = "from User where identifierClient=:identifier";
         Query query = session.createQuery(sql);
         query.setParameter("identifier", identifierClient);
-        return (User) query.uniqueResult();
+        List<?> list = query.list();
+        return list != null ? (User) list.get(0) : null;
     }
 
     @Transactional
