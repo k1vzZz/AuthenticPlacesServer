@@ -8,8 +8,12 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "google_identifier", unique = true)
+    private String identifierClient;
 
     @Column(name = "login")
     private String login;
@@ -30,10 +34,10 @@ public class User {
         this.login = login;
     }
 
-    public User(Integer id, String login, String urlImage) {
-        this.id = id;
+    public User(String identifierClient, String login, String url) {
+        this.identifierClient = identifierClient;
         this.login = login;
-        this.url = urlImage;
+        this.url = url;
     }
 
     public Integer getId() {
@@ -44,12 +48,28 @@ public class User {
         this.id = id;
     }
 
+    public String getIdentifierClient() {
+        return identifierClient;
+    }
+
+    public void setIdentifierClient(String identifierClient) {
+        this.identifierClient = identifierClient;
+    }
+
     public String getLogin() {
         return login;
     }
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<Marker> getMarkers() {
@@ -66,5 +86,17 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", identifierClient='" + identifierClient + '\'' +
+                ", login='" + login + '\'' +
+                ", url='" + url + '\'' +
+                ", markers=" + markers +
+                ", comments=" + comments +
+                '}';
     }
 }

@@ -17,8 +17,8 @@ public class MajorService {
     @Autowired
     private TestDao testDao;
 
-//    @Autowired
-//    private UserDaoImpl userDao;
+    @Autowired
+    private UserDaoImpl userDao;
 
     @Autowired
     private MarkerInfoDao markerInfoDao;
@@ -34,13 +34,13 @@ public class MajorService {
 
     public Marker addMarker(String json) {
         InputInfoMarker inputInfoMarker = InputInfoMarker.createFromJSON(json);
-        Integer identifierClient = Integer.parseInt(inputInfoMarker.getIdentifierClient());
-//        if (userDao.getUserById(identifierClient) == null){
-//            userDao.addUser(identifierClient, inputInfoMarker.getLogin(), inputInfoMarker.getUrlImage());
-//        }
-//        Integer identifierMarker = markerInfoDao.saveNewMarker(inputInfoMarker);
+        String identifierClient = inputInfoMarker.getIdentifierClient();
+        User user = userDao.getUserByIdentifierGoogle(identifierClient);
+        if (user == null){
+            user = userDao.addUser(identifierClient, inputInfoMarker.getLogin(), inputInfoMarker.getUrlImage());
+        }
+        System.out.println(user);
         Marker marker = new Marker();
-        User user = new User(identifierClient, inputInfoMarker.getLogin(), inputInfoMarker.getUrlImage());
         marker.setCreator(user);
         marker.setLatitude(inputInfoMarker.getLatitude());
         marker.setLongitude(inputInfoMarker.getLongitude());

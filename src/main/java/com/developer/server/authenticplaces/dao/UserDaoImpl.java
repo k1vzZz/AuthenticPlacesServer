@@ -3,6 +3,7 @@ package com.developer.server.authenticplaces.dao;
 import com.developer.server.authenticplaces.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,14 +15,19 @@ public class UserDaoImpl {
     private SessionFactory sessionFactory;
 
     @Transactional(readOnly = true)
-    public User getUserById(Integer id){
+    public User getUserByIdentifierGoogle(String identifierClient){
         Session session = sessionFactory.getCurrentSession();
-        return session.get(User.class, id);
+        String sql = "from User where identifierClient=:identifier";
+        Query query = session.createQuery(sql);
+        query.setParameter("identifier", identifierClient);
+        return (User) query.uniqueResult();
     }
 
     @Transactional
-    public void addUser(Integer identifierClient, String login, String urlImage) {
+    public User addUser(String identifierClient, String login, String urlImage) {
         User user = new User(identifierClient, login, urlImage);
-        String url = "insert ";
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(user);
+        return user;
     }
 }
