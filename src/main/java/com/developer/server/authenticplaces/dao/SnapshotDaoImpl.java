@@ -13,16 +13,17 @@ import java.sql.Timestamp;
 @Repository
 public class SnapshotDaoImpl {
 
-//    @Autowired
-//    private SessionFactory sessionFactory;
-//
-//    @Transactional
-//    public Snapshot addPhoto(Marker marker){
-//        Session session = sessionFactory.getCurrentSession();
-//        Snapshot snapshot = new Snapshot();
-//        snapshot.setUploadDate(new Timestamp(System.currentTimeMillis()));
-//        snapshot.setMarker(marker);
-//        session.persist(snapshot);
-//        return snapshot;
-//    }
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    @Transactional
+    public Snapshot addPhoto(Marker marker){
+        Session session = sessionFactory.getCurrentSession();
+        Snapshot snapshot = new Snapshot();
+        snapshot.setUploadDate(new Timestamp(System.currentTimeMillis()));
+        snapshot.setMarker(marker);
+        snapshot.setAuthorPhoto(marker.getCreator());
+        session.persist(snapshot);
+        return snapshot;
+    }
 }
