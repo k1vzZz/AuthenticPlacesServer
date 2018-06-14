@@ -23,7 +23,7 @@ public class SnapshotDaoImpl {
         snapshot.setUploadDate(new Timestamp(System.currentTimeMillis()));
         snapshot.setMarker(marker);
         snapshot.setAuthorPhoto(marker.getCreator());
-        session.persist(snapshot);
+        session.saveOrUpdate(snapshot);
         return snapshot;
     }
 }
