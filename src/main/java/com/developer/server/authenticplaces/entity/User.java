@@ -27,6 +27,9 @@ public class User {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "authorPhoto", fetch = FetchType.LAZY)
+    private List<Snapshot> snapshots;
+
     public User() {
     }
 
@@ -88,15 +91,11 @@ public class User {
         this.comments = comments;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", identifierClient='" + identifierClient + '\'' +
-                ", login='" + login + '\'' +
-                ", url='" + url + '\'' +
-                ", markers=" + markers +
-                ", comments=" + comments +
-                '}';
+    public List<Snapshot> getSnapshots() {
+        return snapshots;
+    }
+
+    public void setSnapshots(List<Snapshot> snapshots) {
+        this.snapshots = snapshots;
     }
 }

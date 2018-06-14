@@ -20,11 +20,15 @@ public class Snapshot {
     @Column(name = "url")
     private String url;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_photo")
+    private User authorPhoto;
+
     @Column(name = "upload_date")
     private Timestamp uploadDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "marker_id")
     private Marker marker;
 
@@ -53,6 +57,14 @@ public class Snapshot {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public User getAuthorPhoto() {
+        return authorPhoto;
+    }
+
+    public void setAuthorPhoto(User authorPhoto) {
+        this.authorPhoto = authorPhoto;
     }
 
     public Timestamp getUploadDate() {
