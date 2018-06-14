@@ -20,17 +20,14 @@ public class MainController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String showTest() {
-//        return majorService.show().getLogin();
+        return majorService.show().getLogin();
 //        return new User("developer");
 //        return Paths.get("").toAbsolutePath().toString();
-        return "";
     }
 
     @RequestMapping(value = "/markers", method = RequestMethod.GET)
-    public InfoMarker showCoordinatesMarkers(){
-//        InfoMarker infoMarker = majorService.getMarkersLatLng();
-//        return infoMarker;
-        return null;
+    public List<MarkerLatLng> showCoordinatesMarkers(){
+        return majorService.getMarkersLatLng();
     }
 
     @RequestMapping(value = "/marker/{id}/update", method = RequestMethod.POST)
@@ -42,8 +39,7 @@ public class MainController {
     @RequestMapping(value = "/marker/new", method = RequestMethod.POST)
     public String newMarker(@RequestBody String json){
         System.out.println(json);
-//        Marker marker = majorService.addMarker(json);
-//        return marker.toString();
-        return "";
+        Marker marker = majorService.addMarker(json);
+        return marker.toString();
     }
 }

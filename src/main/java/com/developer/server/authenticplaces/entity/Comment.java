@@ -24,8 +24,8 @@ public class Comment {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "marker_id")
     private Marker marker;
 
