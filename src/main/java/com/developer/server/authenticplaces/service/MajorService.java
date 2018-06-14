@@ -17,8 +17,8 @@ public class MajorService {
     @Autowired
     private TestDao testDao;
 
-    @Autowired
-    private UserDaoImpl userDao;
+//    @Autowired
+//    private UserDaoImpl userDao;
 
     @Autowired
     private MarkerInfoDao markerInfoDao;
