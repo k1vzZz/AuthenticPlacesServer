@@ -39,6 +39,7 @@ public class MainController {
 
     @RequestMapping(value = "/marker/new", method = RequestMethod.POST)
     public String newMarker(@RequestBody String json){
+        System.out.println(json);
         Marker marker = majorService.addMarker(json);
         return marker.toString();
     }

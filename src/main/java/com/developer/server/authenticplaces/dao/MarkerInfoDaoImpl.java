@@ -40,6 +40,7 @@ public class MarkerInfoDaoImpl implements MarkerInfoDao{
     @Override
     @Transactional
     public void addMarker(Marker marker) {
+        System.out.println("Add marker!!!!!!!!!!!!!!!!!!!!!");
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(marker);
     }

@@ -21,22 +21,6 @@ public class InputInfoMarker {
         return gson.fromJson(json, InputInfoMarker.class);
     }
 
-    public String getUrlImage() {
-        return urlImage;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public Integer getIdMarker() {
         return idMarker;
     }
@@ -51,6 +35,22 @@ public class InputInfoMarker {
 
     public void setIdentifierClient(String identifierClient) {
         this.identifierClient = identifierClient;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public List<String> getPhotos() {
