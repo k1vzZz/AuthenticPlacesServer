@@ -52,7 +52,7 @@ public class AuthenticPlacesServerApplication {
         properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         // Package contain entity classes
-        factoryBean.setPackagesToScan("com.developer.server.authenticplaces.entity" );
+        factoryBean.setPackagesToScan("com.developer.server.authenticplaces" );
         factoryBean.setDataSource(dataSource);
         factoryBean.setHibernateProperties(properties);
         factoryBean.afterPropertiesSet();

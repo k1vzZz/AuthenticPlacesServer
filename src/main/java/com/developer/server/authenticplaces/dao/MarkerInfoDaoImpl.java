@@ -26,7 +26,7 @@ public class MarkerInfoDaoImpl implements MarkerInfoDao{
                 + "from " + Marker.class.getName() + " m";
         Session session = sessionFactory.getCurrentSession();
         Query<MarkerLatLng> query = session.createQuery(sql, MarkerLatLng.class);
-        return query.getResultList();
+        return query.list();
     }
 
     @Override
