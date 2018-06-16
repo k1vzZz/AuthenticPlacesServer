@@ -1,6 +1,9 @@
 package com.developer.server.authenticplaces.dao;
 
+import com.developer.server.authenticplaces.entity.Comment;
 import com.developer.server.authenticplaces.entity.Marker;
+import com.developer.server.authenticplaces.entity.Snapshot;
+import com.developer.server.authenticplaces.entity.User;
 import com.developer.server.authenticplaces.model.InputInfoMarker;
 import com.developer.server.authenticplaces.model.MarkerLatLng;
 import org.hibernate.Session;
@@ -15,8 +18,12 @@ import java.util.List;
 @Repository
 public class MarkerInfoDaoImpl implements MarkerInfoDao{
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public MarkerInfoDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -31,17 +38,25 @@ public class MarkerInfoDaoImpl implements MarkerInfoDao{
 
     @Override
     @Transactional
-    public Integer saveNewMarker(InputInfoMarker inputInfoMarker) {
-        String sql = "";
+    public Marker addMarker(User creator, Double latitude, Double longitude) {
         Session session = sessionFactory.getCurrentSession();
-        return 0;
+        Marker marker = new Marker();
+        marker.setCreator(creator);
+        marker.setLatitude(latitude);
+        marker.setLongitude(longitude);
+        session.saveOrUpdate(marker);
+        return marker;
     }
 
     @Override
-    @Transactional
-    public void addMarker(Marker marker) {
-        System.out.println("Add marker!!!!!!!!!!!!!!!!!!!!!");
+    @Transactional(readOnly = true)
+    public Marker getMarker(Integer id, boolean allContent){
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(marker);
+        Marker marker = session.get(Marker.class, id);
+        if (allContent) {
+            List<Comment> comments = marker.getComments();
+            List<Snapshot> snapshots = marker.getSnapshots();
+        }
+        return marker;
     }
 }

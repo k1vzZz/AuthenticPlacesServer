@@ -18,9 +18,9 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = { //
-        DataSourceAutoConfiguration.class, //
-        DataSourceTransactionManagerAutoConfiguration.class, //
+@EnableAutoConfiguration(exclude = {
+        DataSourceAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class })
 public class AuthenticPlacesServerApplication {
 
@@ -47,12 +47,11 @@ public class AuthenticPlacesServerApplication {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
-        properties.put("current_session_context_class", //
+        properties.put("current_session_context_class",
                 env.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
         properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        // Package contain entity classes
-        factoryBean.setPackagesToScan("com.developer.server.authenticplaces" );
+        factoryBean.setPackagesToScan("com.developer.server.authenticplaces.entity" );
         factoryBean.setDataSource(dataSource);
         factoryBean.setHibernateProperties(properties);
         factoryBean.afterPropertiesSet();
@@ -62,7 +61,6 @@ public class AuthenticPlacesServerApplication {
     @Autowired
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
-        return transactionManager;
+        return new HibernateTransactionManager(sessionFactory);
     }
 }

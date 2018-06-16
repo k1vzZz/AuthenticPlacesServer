@@ -11,11 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl {
+public class UserDaoImpl implements UserDao{
+
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
+    @Override
     @Transactional(readOnly = true)
     public User getUserByIdentifierGoogle(String identifierClient){
         Session session = sessionFactory.getCurrentSession();
@@ -26,6 +31,7 @@ public class UserDaoImpl {
         return list != null && list.size() > 0 ? (User) list.get(0) : null;
     }
 
+    @Override
     @Transactional
     public User addUser(String identifierClient, String login, String urlImage) {
         User user = new User(identifierClient, login, urlImage);

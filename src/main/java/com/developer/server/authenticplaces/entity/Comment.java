@@ -32,6 +32,13 @@ public class Comment {
     public Comment() {
     }
 
+    public Comment(String text, Timestamp uploadDate, User author, Marker marker) {
+        this.text = text;
+        this.uploadDate = uploadDate;
+        this.author = author;
+        this.marker = marker;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -6,4 +6,6 @@ public interface TestDao {
     void testInsert();
 
     User testSelect();
+
+    void removeData();
 }

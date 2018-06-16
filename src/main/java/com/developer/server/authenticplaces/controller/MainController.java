@@ -5,6 +5,7 @@ import com.developer.server.authenticplaces.entity.Marker;
 import com.developer.server.authenticplaces.entity.User;
 import com.developer.server.authenticplaces.model.InfoMarker;
 import com.developer.server.authenticplaces.model.MarkerLatLng;
+import com.developer.server.authenticplaces.model.OutputContentMarker;
 import com.developer.server.authenticplaces.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
@@ -21,8 +22,12 @@ import java.util.List;
 @RestController
 public class MainController {
 
+    private final MajorService majorService;
+
     @Autowired
-    private MajorService majorService;
+    public MainController(MajorService majorService) {
+        this.majorService = majorService;
+    }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String showTest() {
@@ -31,30 +36,42 @@ public class MainController {
 //        return Paths.get("").toAbsolutePath().toString();
     }
 
+    @RequestMapping(value = "/drop", method = RequestMethod.GET)
+    public String drop(){
+        majorService.dropData();
+        return "drop";
+    }
+
     @RequestMapping(value = "/markers", method = RequestMethod.GET)
     public List<MarkerLatLng> showCoordinatesMarkers(){
         return majorService.getMarkersLatLng();
     }
 
-    @RequestMapping(value = "/marker/{id}/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/markers/{id}/update", method = RequestMethod.POST)
     public Integer updateMarkerContent(@PathVariable Integer id,
                                       @RequestBody String json){
-        return MajorService.UPDATE_SUCCESS;
+        return majorService.updateMarker(id, json);
     }
 
-    @RequestMapping(value = "/marker/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/markers/new", method = RequestMethod.POST)
     public Integer newMarker(@RequestBody String json){
         System.out.println(json);
         return majorService.addMarker(json);
     }
 
-    @RequestMapping(value = "/marker/{id}/{imageId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/markers/{id}", method = RequestMethod.GET)
+    public OutputContentMarker showMarkerContent(@PathVariable Integer id){
+        return majorService.getMarkerContent(id);
+    }
+
+    @RequestMapping(value = "/markers/{id}/{imageId}", method = RequestMethod.GET)
     public @ResponseBody
     void getInsideImage(@PathVariable Integer id,
                         @PathVariable Integer imageId,
                         HttpServletResponse response) throws IOException {
-        File file = new File(Paths.get("").toAbsolutePath().toString()
-                + File.separator + id + File.separator + imageId + ".png");
+//        File file = new File(Paths.get("").toAbsolutePath().toString()
+//                + File.separator + id + File.separator + imageId + ".png");
+        File file = new File(File.separator + id + File.separator + imageId + ".png");
         InputStream fileInputStream = new FileInputStream(file);
         response.setContentType("image/*");
         response.setCharacterEncoding("UTF-8");
