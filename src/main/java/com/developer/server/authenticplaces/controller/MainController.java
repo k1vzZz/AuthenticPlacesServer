@@ -75,7 +75,7 @@ public class MainController {
         InputStream fileInputStream = new FileInputStream(file);
         response.setContentType("image/*");
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-Disposition", "attachment; filename=" + id);
+        response.setHeader("Content-Disposition", "attachment; filename=" + id + '-' + imageId);
         response.setHeader("Content-Length", String.valueOf(file.length()));
         FileCopyUtils.copy(fileInputStream, response.getOutputStream());
     }

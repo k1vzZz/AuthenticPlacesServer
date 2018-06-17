@@ -17,9 +17,7 @@ public class FileUtils {
 //                + File.separator + identifierMarker);
         File folder = new File(File.separator + identifierMarker);
         if (!folder.exists()){
-            if(!folder.mkdir()){
-                return;
-            }
+            folder.mkdir();
         }
         File image = new File(folder, identifierSnapshot + ".png");
         try (OutputStream outputStream = new FileOutputStream(image)) {

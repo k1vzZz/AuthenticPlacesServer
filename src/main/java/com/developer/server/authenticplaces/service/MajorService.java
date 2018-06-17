@@ -81,6 +81,7 @@ public class MajorService {
         System.out.println(user);
         Marker marker = markerInfoDao.addMarker(user, inputInfoMarker.getLatitude(),
                 inputInfoMarker.getLongitude());
+        System.out.println("MARKER ID: " + marker.getId());
         addPhotos(inputInfoMarker.getPhotos(), marker, user);
         addComments(inputInfoMarker.getCommentsText(), inputInfoMarker.getTimes(), marker, user);
         return marker.getId();
@@ -90,8 +91,10 @@ public class MajorService {
     public OutputContentMarker getMarkerContent(Integer id) {
         System.out.println("GET MARKER CONTENT");
         Marker marker = markerInfoDao.getMarker(id, true);
-        return new OutputContentMarker(marker.getCreator(),
-                marker.getSnapshots(), marker.getComments());
+        OutputContentMarker outputContentMarker = new OutputContentMarker(marker.getCreator());
+        outputContentMarker.setSnapshots(marker.getSnapshots());
+        outputContentMarker.setComments(marker.getComments());
+        return outputContentMarker;
     }
 
     private User addOrGetUser(String identifierClient, String login, String urlImage){
