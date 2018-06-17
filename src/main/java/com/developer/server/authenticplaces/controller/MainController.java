@@ -3,7 +3,9 @@ package com.developer.server.authenticplaces.controller;
 
 import com.developer.server.authenticplaces.model.MarkerLatLng;
 import com.developer.server.authenticplaces.service.MajorService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,18 +63,18 @@ public class MainController {
     }
 
     @RequestMapping(value = "/markers/{id}/{imageId}", method = RequestMethod.GET)
-    public @ResponseBody
-    void getInsideImage(@PathVariable Integer id,
+    @ResponseBody
+    public void getInsideImage(@PathVariable Integer id,
                         @PathVariable Integer imageId,
                         HttpServletResponse response) throws IOException {
         File file = new File(Paths.get("").toAbsolutePath().toString()
                 + File.separator + id + File.separator + imageId + ".jpg");
 //        File file = new File(File.separator + id + File.separator + imageId + ".png");
         InputStream fileInputStream = new FileInputStream(file);
-        response.setContentType("image/*");
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Disposition", "attachment; filename=" + id + '-' + imageId);
         response.setHeader("Content-Length", String.valueOf(file.length()));
-        FileCopyUtils.copy(fileInputStream, response.getOutputStream());
+        IOUtils.copy(fileInputStream, response.getOutputStream());
     }
 }

@@ -2,10 +2,7 @@ package com.developer.server.authenticplaces.utils;
 
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Paths;
 
 @Component
@@ -22,7 +19,7 @@ public class FileUtils {
             folder.mkdir();
         }
         File image = new File(folder, identifierSnapshot + ".jpg");
-        try (OutputStream outputStream = new FileOutputStream(image)) {
+        try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(image))) {
             outputStream.write(decodedString);
             outputStream.flush();
         } catch (IOException e){
