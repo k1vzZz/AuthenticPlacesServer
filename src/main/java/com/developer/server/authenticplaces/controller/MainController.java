@@ -66,7 +66,7 @@ public class MainController {
                         @PathVariable Integer imageId,
                         HttpServletResponse response) throws IOException {
         File file = new File(Paths.get("").toAbsolutePath().toString()
-                + File.separator + id + File.separator + imageId + ".png");
+                + File.separator + id + File.separator + imageId + ".jpg");
 //        File file = new File(File.separator + id + File.separator + imageId + ".png");
         InputStream fileInputStream = new FileInputStream(file);
         response.setContentType("image/*");
