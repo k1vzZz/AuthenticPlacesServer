@@ -64,7 +64,7 @@ public class MainController {
 
     @RequestMapping(value = "/markers/{id}/{imageId}", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getInsideImage(@PathVariable Integer id,
+    public void getInsideImage(@PathVariable Integer id,
                         @PathVariable Integer imageId,
                         HttpServletResponse response) throws IOException {
         File file = new File(Paths.get("").toAbsolutePath().toString()
@@ -72,10 +72,9 @@ public class MainController {
 //        File file = new File(File.separator + id + File.separator + imageId + ".png");
         InputStream fileInputStream = new FileInputStream(file);
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-Disposition", "attachment; filename=" + id + '-' + imageId);
-        response.setHeader("Content-Length", String.valueOf(file.length()));
-//        IOUtils.copy(fileInputStream, response.getOutputStream());
-        return IOUtils.toByteArray(fileInputStream);
+//        response.setCharacterEncoding("UTF-8");
+//        response.setHeader("Content-Disposition", "attachment; filename=" + id + '-' + imageId);
+//        response.setHeader("Content-Length", String.valueOf(file.length()));
+        IOUtils.copy(fileInputStream, response.getOutputStream());
     }
 }
