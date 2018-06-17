@@ -7,15 +7,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Paths;
 
 @Component
 public class FileUtils {
 
     public void saveImage(String imageBase64, Integer identifierMarker, Integer identifierSnapshot) {
         byte[] decodedString = Base64.decodeBase64(imageBase64);
-//        File folder = new File(Paths.get("").toAbsolutePath().toString()
-//                + File.separator + identifierMarker);
-        File folder = new File(File.separator + identifierMarker);
+        File folder = new File(Paths.get("").toAbsolutePath().toString()
+                + File.separator + identifierMarker);
+//        File folder = new File(File.separator + identifierMarker);
         if (!folder.exists()){
             folder.mkdir();
         }

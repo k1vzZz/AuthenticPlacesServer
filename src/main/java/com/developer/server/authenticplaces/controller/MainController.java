@@ -69,9 +69,9 @@ public class MainController {
     void getInsideImage(@PathVariable Integer id,
                         @PathVariable Integer imageId,
                         HttpServletResponse response) throws IOException {
-//        File file = new File(Paths.get("").toAbsolutePath().toString()
-//                + File.separator + id + File.separator + imageId + ".png");
-        File file = new File(File.separator + id + File.separator + imageId + ".png");
+        File file = new File(Paths.get("").toAbsolutePath().toString()
+                + File.separator + id + File.separator + imageId + ".png");
+//        File file = new File(File.separator + id + File.separator + imageId + ".png");
         InputStream fileInputStream = new FileInputStream(file);
         response.setContentType("image/*");
         response.setCharacterEncoding("UTF-8");

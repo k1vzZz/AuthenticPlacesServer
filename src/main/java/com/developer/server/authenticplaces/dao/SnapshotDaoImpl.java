@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 
 @Repository
@@ -31,7 +32,8 @@ public class SnapshotDaoImpl implements SnapshotDao {
         snapshot.setMarker(marker);
         snapshot.setAuthorPhoto(authorPhoto);
         session.saveOrUpdate(snapshot);
-        snapshot.setPath(File.separator + marker.getId() + File.separator + snapshot.getId());
+        snapshot.setPath(Paths.get("").toAbsolutePath().toString() +
+                File.separator + marker.getId() + File.separator + snapshot.getId());
         snapshot.setUrl("https://authenticplaces.herokuapp.com/markers/" + marker.getId() + '/' + snapshot.getId());
         return snapshot;
     }
