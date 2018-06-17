@@ -1,11 +1,7 @@
 package com.developer.server.authenticplaces.controller;
 
 
-import com.developer.server.authenticplaces.entity.Marker;
-import com.developer.server.authenticplaces.entity.User;
-import com.developer.server.authenticplaces.model.InfoMarker;
 import com.developer.server.authenticplaces.model.MarkerLatLng;
-import com.developer.server.authenticplaces.model.OutputContentMarker;
 import com.developer.server.authenticplaces.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
@@ -60,8 +56,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/markers/{id}", method = RequestMethod.GET)
-    public OutputContentMarker showMarkerContent(@PathVariable Integer id){
-        return majorService.getMarkerContent(id);
+    public String showMarkerContent(@PathVariable Integer id){
+        return majorService.getMarkerContentJson(id);
     }
 
     @RequestMapping(value = "/markers/{id}/{imageId}", method = RequestMethod.GET)

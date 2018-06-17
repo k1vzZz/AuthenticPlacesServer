@@ -8,6 +8,7 @@ import com.developer.server.authenticplaces.model.InputInfoMarker;
 import com.developer.server.authenticplaces.model.MarkerLatLng;
 import com.developer.server.authenticplaces.model.OutputContentMarker;
 import com.developer.server.authenticplaces.utils.FileUtils;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,13 +89,14 @@ public class MajorService {
     }
 
     @Transactional
-    public OutputContentMarker getMarkerContent(Integer id) {
+    public String getMarkerContentJson(Integer id) {
         System.out.println("GET MARKER CONTENT");
         Marker marker = markerInfoDao.getMarker(id, true);
         OutputContentMarker outputContentMarker = new OutputContentMarker(marker.getCreator());
         outputContentMarker.setSnapshots(marker.getSnapshots());
         outputContentMarker.setComments(marker.getComments());
-        return outputContentMarker;
+        Gson gson = new Gson();
+        return gson.toJson(outputContentMarker);
     }
 
     private User addOrGetUser(String identifierClient, String login, String urlImage){
