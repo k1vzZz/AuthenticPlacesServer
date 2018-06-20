@@ -63,7 +63,6 @@ public class MajorService {
 
     @Transactional
     public Integer updateMarker(Integer id, String json) {
-        System.out.println("UPDATE MARKER");
         InputInfoMarker inputInfoMarker = InputInfoMarker.createFromJSON(json);
         String identifierClient = inputInfoMarker.getIdentifierClient();
         User author = addOrGetUser(identifierClient, inputInfoMarker.getLogin(), inputInfoMarker.getUrlImage());
@@ -75,14 +74,12 @@ public class MajorService {
 
     @Transactional
     public Integer addMarker(String json) {
-        System.out.println("ADD MARKER");
         InputInfoMarker inputInfoMarker = InputInfoMarker.createFromJSON(json);
         String identifierClient = inputInfoMarker.getIdentifierClient();
         User user = addOrGetUser(identifierClient, inputInfoMarker.getLogin(), inputInfoMarker.getUrlImage());
         System.out.println(user);
         Marker marker = markerInfoDao.addMarker(user, inputInfoMarker.getLatitude(),
                 inputInfoMarker.getLongitude());
-        System.out.println("MARKER ID: " + marker.getId());
         addPhotos(inputInfoMarker.getPhotos(), marker, user);
         addComments(inputInfoMarker.getCommentsText(), inputInfoMarker.getTimes(), marker, user);
         return marker.getId();
@@ -90,7 +87,6 @@ public class MajorService {
 
     @Transactional
     public String getMarkerContentJson(Integer id) {
-        System.out.println("GET MARKER CONTENT");
         Marker marker = markerInfoDao.getMarker(id, true);
         OutputContentMarker outputContentMarker = new OutputContentMarker(marker.getCreator());
         outputContentMarker.setSnapshots(marker.getSnapshots());
@@ -100,10 +96,8 @@ public class MajorService {
     }
 
     private User addOrGetUser(String identifierClient, String login, String urlImage){
-        System.out.println("ADD OR GET USER");
         User user = userDao.getUserByIdentifierGoogle(identifierClient);
         if (user == null){
-            System.out.println("ADD OR GET USER: NEW USER");
             user = userDao.addUser(identifierClient, login, urlImage);
         }
         return user;
@@ -111,17 +105,14 @@ public class MajorService {
 
     private void addPhotos(List<String> imagesBase64, Marker marker, User user){
         if (imagesBase64 == null) return;
-        System.out.println("ADD PHOTOS");
         for (String image : imagesBase64){
             Snapshot snapshot = snapshotDao.addPhoto(marker, user);
-            System.out.println("IDENTIFIER SNAPSHOT:" + snapshot.getId());
             fileUtils.saveImage(image, marker.getId(), snapshot.getId());
         }
     }
 
     private void addComments(List<String> textList, List<Long> times, Marker marker, User user){
         if (textList == null || times == null) return;
-        System.out.println("ADD COMMENTS");
         Iterator<Long> iterator = times.iterator();
         for (String text : textList){
             if (iterator.hasNext()){
